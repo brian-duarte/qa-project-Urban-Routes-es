@@ -1,0 +1,84 @@
+### PROJECT NAME:
+    Qa-project-Urban-Routes
+
+### PROJECT DESCRIPTION:
+    En este proyecto se implementaron pruebas automatizadas en Selenium WebDrive utilizando pytest para verificacion de las pruebas
+de la pagina web de Urban Routes.
+
+Las pruebas simularon el comportamiento de un usuario en la solicitud de un taxi, ingresando lo siguiente:
+*Direccion desde y hasta
+*Seleccionar la categoria de taxi-Comfort
+*Registrar numero de telefono y confirmarlo mediante el codigo SMS
+*Agregar metodo de pago
+*Dar instrucciones al conductor
+*Realizar el pedido y esperar la asignacion de un conductor
+
+El objetivo fue validar los campos y servicios de la pagina Urban Routes
+
+### FUNCTIONS AND TECHNIQUES USED:
+    Este proyecto consta del diseño de POM – Page Object Model.
+El objetivo es separar los elementos de manera más limpia, mantenible y reutilizable.
+
+*DATA: Contiene la información que se tiene que agregar para mayor facilidad de manipulación sobre el código.
+*LOCALIZADORES: Contiene los localizadores.
+*MAIN: Define las clases de página con métodos para dar acción a los requisitos solicitados.
+*TEST_URBAN: Contiene los casos de prueba.
+
+Las técnicas usadas son:
+
+*WebDriverWait: Da un tiempo determinado para hacer una pausa en la ejecución para que se cumpla la condición sin errores.
+*Expected_conditions: Hace que las pruebas esperen a que se cumplan las condiciones antes de ejecutar el siguiente método.
+*En el método click_button_comfort, utilicé JavaScript, debido a que no quería hacer clic en “Comfort”.
+Investigando y verificando mi localizador, para mí fue más factible utilizar JavaScript, ya que fuerza el clic según las fuentes que investigué y utilizando IA.
+'https://www.browserstack.com/guide/javascriptexecutor-in-selenium'
+*@classmethod – teardown_class: Su función es cerrar y liberar los recursos del navegador para evitar baja de rendimiento en mi ordenador.
+
+###TEST INSTRUCTIONS:
+    A principios fue muy retador, pero guiándome paso por paso se me facilitó el proceso y la finalización del código.
+Primero empecé analizando cuidadosamente cómo estaba estructurado el código; fui agregando los localizadores según los requisitos, hasta poder llegar a la opción de pedir el taxi.
+En los localizadores fui muy cuidadoso, ya que son las bases para que tu código pueda correr correctamente. Gracias a mis instructores logré identificar los localizadores de una manera sencilla y poner en práctica todo lo aprendido.
+
+Primero hay que darle nombre a los localizadores; una vez hecho esto, en la clase UrbanRoutesPage los mandamos a llamar, dándoles nombres específicos para dar una acción en el archivo main (donde contiene todos los métodos).
+Ejemplo:
+
+    def set_phone_number(self, phone_number):
+        ###Abre el modal, ingresa número y presiona 'Siguiente'
+        self.driver.find_element(*self.phone_entry_button).click()
+
+        WebDriverWait(self.driver, 5).until(expected_conditions.visibility_of_element_located(self.phone_input_field)).send_keys(phone_number)
+
+        self.driver.find_element(*self.phone_next_button).click()
+
+‘def’ es para dar a entender que tiene que hacer una acción; se le agrega un nombre a esta función.
+self permite acceder al driver, mientras que el driver obtiene la información del localizador.
+Se agrega self.driver.find_element para buscar un elemento, y al agregar (*self.phone_entry_button) logras llamar al localizador.
+Al darle la función click() le estamos dando a entender al código que tiene que dar clic en ese localizador.
+
+Se agrega un WebDriverWait para dar a entender que, después de que le haya dado clic, tiene que esperar 5 segundos a que se haga visible el localizador para agregar el número de teléfono.
+El .send_keys da la función de escribir un texto dentro del campo de número de teléfono.
+
+Al finalizar toda esta función se manda el siguiente codigo:
+
+'self.driver.find_element(*self.phone_next_button).click()'
+
+para dar a entender que, después de que haya hecho toda la función anterior, tiene que dar clic al botón "Siguiente" según el localizador mencionado.
+
+En la parte del testing fue más sencillo:
+
+Ejemplo:
+
+    def test_phone_number_and_sms(self):
+        self.driver.get(data.urban_routes_url)
+        routes_page = UrbanRoutesPage(self.driver)
+
+        routes_page.set_route(data.address_from, data.address_to)
+        routes_page.click_taxi_button()
+        routes_page.click_button_comfort()
+        routes_page.set_phone_number(data.phone_number)
+        routes_page.enter_sms_code()
+
+          assert True
+
+Se le da nombre al test que se va a probar, obteniendo la información del 'data' junto con el 'main' en la sección de UrbanRoutesPage, y de igual manera obteniendo la información del método, agregando el nombre anteriormente dado.
+Al final se le agrega un assert verificando que sea True.
+
