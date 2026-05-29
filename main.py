@@ -120,7 +120,7 @@ class UrbanRoutesPage:
 
     def click_button_comfort(self):
 
-      # Importación local para claridad
+        # Importación local para claridad
 
         # 1. Esperar la PRESENCIA del elemento en el DOM (más indulgente que visibility)
         WebDriverWait(self.driver, 15).until(

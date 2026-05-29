@@ -1,7 +1,8 @@
 import data
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.options import Options  # Asegúrate de tener esto
+from webdriver_manager.chrome import ChromeDriverManager  # IMPORTANTE: Esta es la única importación nueva necesaria
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from main import UrbanRoutesPage
@@ -9,18 +10,21 @@ from LOCATORS import UrbanRoutesLocators
 
 
 class TestUrbanRoutes:
-
     driver = None
 
     @classmethod
     def setup_class(cls):
-        # no lo modifiques, ya que necesitamos un registro adicional habilitado para recuperar el código de confirmación del teléfono
-        service = Service("/usr/local/bin/chromedriver")
-        from selenium.webdriver import DesiredCapabilities
+        # 1. Usamos el gestor automático
+        service = Service(ChromeDriverManager().install())
 
+        from selenium.webdriver import DesiredCapabilities
         capabilities = DesiredCapabilities.CHROME
         capabilities["goog:loggingPrefs"] = {"performance": "ALL"}
+
+        # 2. Inicializamos el driver
         cls.driver = webdriver.Chrome(service=service)
+
+
 
     ## Establecer ruta
     def test_set_route(self):
