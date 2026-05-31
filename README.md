@@ -1,4 +1,4 @@
-# 🚕 Automatización Web QA: Urban Routes
+# 🚕 Automatización Web - Urban Routes
 
 ## 📋 Project Overview
   
@@ -35,13 +35,33 @@ https://github.com/user-attachments/assets/1242773d-60ae-43e3-9ab4-56cfa4e6d6be
 * **Advanced Selenium Techniques:** Application of WebDriverWait and expected_conditions to handle web page asynchrony, and JavaScript execution for complex interactions.
 * **Efficient Resource Management:** Implementation of teardown methods to ensure proper browser closure and optimize system performance.
 
+---
+
+## 🛠️ Test Coverage
 
 
-| Categoría | Herramientas / Técnicas |
+| Category | Tools / Techniques |
 | --- | --- |
-| Lenguaje | Python |
-| Automatización | Selenium WebDriver |
-| Framework de Pruebas | pytest |
-| Patrón de Diseño | Page Object Model (POM) |
-| Interacciones | JavaScript Executor |
-| Esperas | WebDriverWait / EC |
+| Language | Python |
+| Automation | Selenium WebDriver |
+| Test Framework | pytest |
+| Design Pattern | Page Object Model (POM) |
+| Interactions | JavaScript Executor |
+| Waits | WebDriverWait / EC |
+
+---
+
+## 📊 Test Results
+
+| Status | Quantity | Percentage |
+| --- | --- | --- |
+| **Passed** | 5 | 55.6% |
+| **Failed** | 4 | 44.4% |
+| **Total** | **9** | **100%** |
+
+
+### Findings Analysis
+
+The execution identified that 55.6% of critical functionalities operate correctly under normal conditions. The detected failures serve as a roadmap for the development team, allowing them to prioritize fixes in specific UI elements and server response times.
+
+
